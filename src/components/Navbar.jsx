@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 // import Cart from "./Cart";
 
 const Navbar = () => {
-  const cartItems = useSelector((state) => state.products.selectedProducts);
+  const cartItems = useSelector((state) => state.carts.cartItems);
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#c6934b", padding: "10px 20px" }}>
       <Link className="navbar-brand mx-5" to="/" style={{ color: "#fff", fontWeight: "bold", fontSize: "1.5rem" }}>
