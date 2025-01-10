@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, fetchFromAPI, filterProducts } from "../slices/ProductSlice";
+import {  fetchFromAPI, filterProducts } from "../slices/ProductSlice";
 import { FaShoppingCart } from "react-icons/fa";
-import { Form, Button, Card, Col, Row, Container } from "react-bootstrap";
+import { Form, Button, Card, Col, Row, Container, Spinner, Alert } from "react-bootstrap";
+import { addToCart } from "../slices/CartSlice";
 
 const ProductsList = () => {
   const dispatch = useDispatch();
@@ -23,8 +24,8 @@ const ProductsList = () => {
     dispatch(filterProducts({ category, searchTerm }));
   }, [category, searchTerm, dispatch]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <Spinner animation="border" variant="primary" />; // Loading spinner
+  if (error) return <Alert variant="danger">Error: {error}</Alert>; // Error message
 
   return (
     <Container className="mt-4">
@@ -58,7 +59,7 @@ const ProductsList = () => {
       {/* Product List */}
       <Row className="g-4">
         {filteredProducts.map((product) => (
-          <Col md={4} key={product.id}>
+          <Col md={4} key={product.id}> {/* Using product.id for key, ensuring uniqueness */}
             <Card className="h-100">
               <Card.Img
                 variant="top"

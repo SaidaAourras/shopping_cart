@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/products";
 
-// Async thunk pour récupérer les produits depuis l'API
+// Async thunk to fetch products from API
 export const fetchFromAPI = createAsyncThunk(
   "products/fetchFromAPI",
   async () => {
@@ -17,7 +17,6 @@ const productSlice = createSlice({
   initialState: {
     productsList: [],
     filteredProducts: [],
-    selectedProducts: [],
     loading: false,
     error: null,
   },
@@ -27,31 +26,7 @@ const productSlice = createSlice({
       state.filteredProducts.push(action.payload);
     },
 
-    addToCart: (state, action) => {
-      state.selectedProducts.push(action.payload);
-    },
-
-    remove: (state, action) => {
-      state.selectedProducts = state.selectedProducts.filter(
-        (product) => product.id !== action.payload
-      );
-    },
-
-    update: (state, action) => {
-      const index = state.productsList.findIndex(
-        (product) => product.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.productsList[index] = action.payload;
-
-        const filteredIndex = state.filteredProducts.findIndex(
-          (product) => product.id === action.payload.id
-        );
-        if (filteredIndex !== -1) {
-          state.filteredProducts[filteredIndex] = action.payload;
-        }
-      }
-    },
+    // Removed the cart-related logic from here
 
     filterProducts: (state, action) => {
       const { category, searchTerm } = action.payload;
@@ -83,7 +58,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { addToListProduct, addToCart, remove, update, filterProducts } =
-  productSlice.actions;
+export const { addToListProduct, filterProducts } = productSlice.actions;
 
 export default productSlice.reducer;
