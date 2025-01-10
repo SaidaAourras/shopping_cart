@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 // import ModalCart from "./ModalCart";
 import { FaCartShopping } from "react-icons/fa6";
 
+import { useSelector } from "react-redux";
+// import Cart from "./Cart";
+
 const Navbar = () => {
+  const cartItems = useSelector((state) => state.products.selectedProducts);
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#c6934b", padding: "10px 20px" }}>
       <Link className="navbar-brand mx-5" to="/" style={{ color: "#fff", fontWeight: "bold", fontSize: "1.5rem" }}>
@@ -24,13 +28,17 @@ const Navbar = () => {
               data-bs-target="#carts"
               href="/cart"
             >
+              
+              <Link style={{ textDecoration: "none" }}  to="/Cart">
               <FaCartShopping style={{ marginRight: "5px" }} /> 
-              <span>Order</span>
-              <span className="badge badge-light ml-2" style={{ marginLeft: "8px", backgroundColor: "#f5c6a5", color: "#5c2c0e" }}>7</span>
+              <span className="badge badge-light ml-2" style={{ marginLeft: "8px", backgroundColor: "#f5c6a5", color: "#5c2c0e" }}>{cartItems.length}</span>
+          
+              </Link>
             </button>
           </li>
         </ul>
       </div>
+      {/* <Cart></Cart> */}
     </nav>
   );
 };
